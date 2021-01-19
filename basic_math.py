@@ -73,7 +73,7 @@ def get_mean(number_list):
     sum_numbers = 0
     for number in number_list:
         sum_numbers += number
-    mean = sum_numbers // len(number_list)
+    mean = sum_numbers / len(number_list)
     return mean
 
 
@@ -97,43 +97,27 @@ def get_median(number_list):
             >>> bm.get_median(number_list2)
             35.5
     """
-    minheap = [0]
-
-    # insert
-    for number in number_list:
-        minheap.append(number)
-        index = len(minheap)
-        parent = index // 2
-        while parent: # 0보다 클때까지            
-            if minheap[index] >= minheap[parent]:
-                break
-            minheap[index], minheap[parent] = minheap[parent], minheap[index]
-            index = parent
-            parent = index // 2
-    # pop
-    answer = []
-    for i in range( (len(number_list)//2)+1):
-        poped_number = minheap[1]
-        answer.append(poped_number)
-        minheap[1] = minheap.pop()
-        index = 1
-        child1 = index * 2 + 1
-        while child1 < len(minheap):
-            min_index = index
-            if minheap[min_index] > minheap[child1]:
-                min_index = child1
-            if child1+1 < len(minheap) and minheap[min_index] > minheap[child1+1]:
-                min_index = child1+1
-            if min_index == index:
-                break
-            else:
-                minheap[index], minheap[min_index] = minheap[min_index], minheap[index]
-                index = min_index
-                child1 = index * 2 + 1
-    # 홀수
+    number_list.sort()
+    mid = len(number_list) // 2
     if len(number_list) % 2:
-        median = answer[-1]
-    # 짝수
+        median = number_list[mid]
     else:
-        median = (answer[-1] + answer[-2]) / 2
+        median = (number_list[mid-1]+ number_list[mid])/2
     return median
+# print(get_median([72, 51, 10, 48, 58, 62, 92, 90, 11, 16]), 51.0)
+# print(get_median([54, 56, 30, 12, 58, 25, 17, 48, 80, 23]), 40.3)
+            
+# >>> number_list = [39, 54, 32, 11, 99]
+# >>> import basic_math as bm
+# >>> bm.get_median(number_list)
+# 39
+# >>> number_list2 = [39, 54, 32, 11, 99, 5]
+# >>> bm.get_median(number_list2)
+# 35.5
+# lst1 = [39, 54, 32, 11, 99]
+# lst2 = [39, 54, 32, 11, 99, 5]
+# lst1.sort()
+# lst2.sort()
+# lst1 = [11, 32, 39, 54, 99]
+# lst2 = [5, 11, 32, 39, 54, 99] # 6 => 3 => 2,3
+# print((32+39)/2)
