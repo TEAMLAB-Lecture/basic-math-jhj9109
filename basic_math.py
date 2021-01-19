@@ -135,5 +135,5 @@ def get_median(number_list):
         median = answer[-1]
     # 짝수
     else:
-        median = (answer[-1] + answer[-2]) // 2
+        median = (answer[-1] + answer[-2]) / 2
     return median
