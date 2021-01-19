@@ -24,7 +24,9 @@ def get_greatest(number_list):
             >>> bm.get_greatest(number_list)
             99
     """
-    greatest_number = None
+    greatest_number = number_list[0]
+    for number in number_list[1:]:
+        greatest_number = max(greatest_number, number)
     return greatest_number
 
 
@@ -45,7 +47,9 @@ def get_smallest(number_list):
             >>> bm.get_smallest(number_list)
             11
     """
-    smallest_number = None
+    smallest_number = number_list[0]
+    for number in number_list[1:]:
+        smallest_number = min(smallest_number, number)
     return smallest_number
 
 
@@ -66,7 +70,10 @@ def get_mean(number_list):
             >>> bm.get_mean(number_list)
             47
     """
-    mean = None
+    sum_numbers = 0
+    for number in number_list:
+        sum_numbers += number
+    mean = sum_numbers // len(number_list)
     return mean
 
 
@@ -90,5 +97,43 @@ def get_median(number_list):
             >>> bm.get_median(number_list2)
             35.5
     """
-    median = None
+    minheap = [0]
+
+    # insert
+    for number in number_list:
+        minheap.append(number)
+        index = len(minheap)
+        parent = index // 2
+        while parent: # 0보다 클때까지            
+            if minheap[index] >= minheap[parent]:
+                break
+            minheap[index], minheap[parent] = minheap[parent], minheap[index]
+            index = parent
+            parent = index // 2
+    # pop
+    answer = []
+    for i in range( (len(number_list)//2)+1):
+        poped_number = minheap[1]
+        answer.append(poped_number)
+        minheap[1] = minheap.pop()
+        index = 1
+        child1 = index * 2 + 1
+        while child1 < len(minheap):
+            min_index = index
+            if minheap[min_index] > minheap[child1]:
+                min_index = child1
+            if child1+1 < len(minheap) and minheap[min_index] > minheap[child1+1]:
+                min_index = child1+1
+            if min_index == index:
+                break
+            else:
+                minheap[index], minheap[min_index] = minheap[min_index], minheap[index]
+                index = min_index
+                child1 = index * 2 + 1
+    # 홀수
+    if len(number_list) % 2:
+        median = answer[-1]
+    # 짝수
+    else:
+        median = (answer[-1] + answer[-2]) // 2
     return median
