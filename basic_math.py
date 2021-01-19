@@ -104,20 +104,3 @@ def get_median(number_list):
     else:
         median = (number_list[mid-1]+ number_list[mid])/2
     return median
-# print(get_median([72, 51, 10, 48, 58, 62, 92, 90, 11, 16]), 51.0)
-# print(get_median([54, 56, 30, 12, 58, 25, 17, 48, 80, 23]), 40.3)
-            
-# >>> number_list = [39, 54, 32, 11, 99]
-# >>> import basic_math as bm
-# >>> bm.get_median(number_list)
-# 39
-# >>> number_list2 = [39, 54, 32, 11, 99, 5]
-# >>> bm.get_median(number_list2)
-# 35.5
-# lst1 = [39, 54, 32, 11, 99]
-# lst2 = [39, 54, 32, 11, 99, 5]
-# lst1.sort()
-# lst2.sort()
-# lst1 = [11, 32, 39, 54, 99]
-# lst2 = [5, 11, 32, 39, 54, 99] # 6 => 3 => 2,3
-# print((32+39)/2)
